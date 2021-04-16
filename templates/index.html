@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href=" {{url_for('static',filename='css/bootstrap.css')}} ">
+    <title>Email Validation</title>
+</head>
+<body>
+    <div class="container" style="margin-left: 30%; margin-top: 10%;">
+        <br><br><br><br><br><br><br>
+        <form action="/process" method="POST" class="p-5 border border-3 rounded" style="width: 70%;">
+            <div class="form-group row g-3">
+                <label for="email" class="col-sm-2 col-form-label">Email Address:</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="text" name="email" id="email" placeholder="Enter an email...">
+                    {% with errors = get_flashed_messages(category_filter=["email"]) %}
+                        {% if errors %}
+                            {% for msg in errors %}
+                            <p style="color: red;" class="text-end">* {{ msg }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    {% with errors = get_flashed_messages(category_filter=["email_taken"]) %}
+                        {% if errors %}
+                            {% for msg in errors %}
+                            <p style="color: red;" class="text-end">* {{ msg }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="form-group row justify-content-end mt-3 col-sm-2">
+                    <div class="col-auto" style="margin-left: auto;">
+                        <input type="submit" role="button" class="btn btn-primary">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
